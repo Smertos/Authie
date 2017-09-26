@@ -11,12 +11,12 @@ What is ready to use?
 
 Roadmap
 ----------
-* Setup a development environment (In-Progress) :wrench:
-* Lay down the basic UI :foggy:
-* Write and drop in functional part :key:
-* A bit of UI polishing magic :sparkles:
-* Add time correction for codes :clock1:
-* Add image barcode scanner for quick adding new entries :║▌║█║▌│║▌║▌█:
+* :wrench: Setup a development environment (In-Progress)
+* :foggy: Lay down the basic UI
+* :key: Write and drop in functional part
+* :sparkles: A bit of UI polishing magic
+* :clock1: Add time correction for codes
+* :║▌║█║▌│║▌║▌:█ Add image barcode scanner for quick adding new entries 
 
 Contributions
 ----------
