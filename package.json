@@ -1,0 +1,80 @@
+{
+  "name": "authie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/electron.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Smertos/Authie.git"
+  },
+  "keywords": [
+    "2fa",
+    "electron",
+    "much",
+    "secure",
+    "very",
+    "auth"
+  ],
+  "author": "Smertos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Smertos/Authie/issues"
+  },
+  "homepage": "https://github.com/Smertos/Authie#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-preact": "^1.1.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^4.0.2",
+    "electron-prebuilt-compile": "1.7.6",
+    "preact": "^8.2.5",
+    "webpack": "^3.6.0"
+  },
+  "dependencies": {
+    "electron-compile": "^6.4.2"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "icon": "assets/icons/Authie.png",
+        "asar": true
+      },
+      "electronWinstallerConfig": {
+        "name": "Authie",
+        "setupExe": "Authie-setup.exe",
+        "description": "Authie - 2FA for your desktop",
+        "setupIcon": "assets/icons/Authie.ico",
+        "noMsi": true
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "Smertos",
+        "name": "Authie"
+      },
+      "windowsStoreConfig": {
+        "packageName": ""
+      }
+    }
+  }
+}

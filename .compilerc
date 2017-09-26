@@ -1,0 +1,9 @@
+{
+  "application/javascript": {
+    "presets": [
+      "env",
+      "preact"
+    ],
+    "plugins": []
+  }
+}
