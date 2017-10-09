@@ -11,9 +11,9 @@ What is ready to use?
 
 Roadmap
 ----------
-* :wrench: Setup a development environment (In-Progress)
-* :foggy: Lay down the basic UI
-* :key: Write and drop in functional part
+* :wrench: Setup a development environment (Done)
+* :foggy: Lay down the basic UI (In-Progress)
+* :key: Write and drop in functional part (In-Progress)
 * :sparkles: A bit of UI polishing magic
 * :clock1: Add time correction for codes
 * :║▌║█║▌│║▌║▌:█ Add image barcode scanner for quick adding new entries 
