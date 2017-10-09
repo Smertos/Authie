@@ -27,19 +27,16 @@
   },
   "homepage": "https://github.com/Smertos/Authie#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-preact": "^1.1.0",
-    "babel-preset-react": "^6.24.1",
     "electron-forge": "^4.0.2",
     "electron-prebuilt-compile": "1.7.6",
-    "preact": "^8.2.5",
-    "webpack": "^3.6.0"
+    "preact": "^8.2.5"
   },
   "dependencies": {
-    "electron-compile": "^6.4.2"
+    "crypto-js": "^3.1.9-1",
+    "electron-compile": "^6.4.2",
+    "lato-webfont": "^2.15.1"
   },
   "config": {
     "forge": {
