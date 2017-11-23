@@ -1,9 +1,15 @@
 {
   "application/javascript": {
     "presets": [
-      "env",
+      ["env", {
+        "targets": {
+          "node": "7.9.0"
+        }
+      }],
       "preact"
     ],
-    "plugins": []
+    "plugins": [
+      "transform-class-properties"
+    ]
   }
 }

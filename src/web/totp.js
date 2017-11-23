@@ -6,7 +6,7 @@ export default class Totp {
   
   constructor (secret, length, expireTime) {
     if (secret === void 0) {
-      throw new Exception("Error: Secret is undefined")
+      throw new Error('Secret is undefined')
     }
     
     this.secret = secret

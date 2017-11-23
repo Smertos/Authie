@@ -7,26 +7,31 @@ class OTPItem extends Component {
     super(props)
 
     this.state = {
-      totp: new Totp(props.secretKey)
+      generator: new Totp(this.props.key),
+      width: '100%'
     }
-    
-    setInterval(() => this.setState({}), 250)
+
+    this.interval = setInterval(() => this.setState({
+      width: Math.round((this.state.generator.getRemainingTime() + 1) * 100 / this.state.generator.expireTime, 2) + '%',
+      currentCode: this.state.generator.getCode()
+    }), 250)
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.interval)
   }
 
   render () {
     return (
       <div className="otp-item">
         <div className="info">
-          <span className="account" align="center">{ this.props.account }</span>
-          <div className="progress">
-            <div className="bar" style={
-              {
-                width: Math.round((this.state.totp.getRemainingTime() + 1) * 100 / this.state.totp.expireTime, 2) + '%'
-              }
-            }></div>
-          </div>
+          <span className="account">{ this.props.issuer }</span>
+          <span className="code">{ this.state.currentCode }</span>
         </div>
-          <span className="code">{ this.state.totp.getCode() }</span>
+        <span className="name">{ this.props.name }</span>
+        <div className="progress">
+          <div className="bar" style={{ width: this.state.width }}></div>
+        </div>
       </div>
     )
   }

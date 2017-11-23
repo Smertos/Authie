@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/electron.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "./node_modules/.bin/electron-forge start",
+    "package": "./node_modules/.bin/./node_modules/.bin/electron-forge package",
+    "make": "./node_modules/.bin/electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Smertos/Authie#readme",
   "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-preact": "^1.1.0",
     "electron-forge": "^4.0.2",
@@ -36,7 +37,9 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "electron-compile": "^6.4.2",
-    "lato-webfont": "^2.15.1"
+    "lato-webfont": "^2.15.1",
+    "mkdirp": "0.5.1",
+    "node-sass": "^4.6.0"
   },
   "config": {
     "forge": {
