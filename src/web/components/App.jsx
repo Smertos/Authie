@@ -42,6 +42,8 @@ class App extends Component {
   render () {
     return (
       <div class="codes">
+        <p class="title">Authie</p>
+
         {
           this.state.accounts.map(
             ({ name, key, issuer }) => <OTPItem name={ name } key={ key } issuer={ issuer } />

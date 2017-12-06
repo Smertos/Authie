@@ -21,6 +21,19 @@ body {
   background-color: var(--background-body);
 }
 
+.title {
+  margin-bottom: 0.25em;
+  padding: 0.5em;
+
+  font-family: var(--font-main);
+  font-size: 2em;
+  font-weight: 900;
+  text-align: center;
+
+  color: white;
+  background-color: var(--background-primary);
+}
+
 .otp-item {
   display: flex;
   flex-direction: column;
@@ -37,6 +50,7 @@ body {
 .info {
   display: flex;
   flex-grow: 1;
+  flex-wrap: wrap-reverse;
   justify-content: space-between;
 
   user-select: none;
@@ -48,17 +62,20 @@ body {
   justify-content: center;
   flex: 1;
 
-  padding-left: 1rem;
+  padding: 0 1em;
 
   font-family: var(--font-main);
   font-size: calc(var(--font-size) / 1.33);
   font-weight: 300;
+  text-align: center;
 
   color: var(--color-primary);
 }
 
 .code {
   flex: 1;
+
+  padding: 0 1em;
 
   font-family: var(--font-main);
   font-size: calc(var(--font-size) * 2);

@@ -5,8 +5,12 @@
   "main": "src/electron.js",
   "scripts": {
     "start": "./node_modules/.bin/electron-forge start",
-    "package": "./node_modules/.bin/./node_modules/.bin/electron-forge package",
-    "make": "./node_modules/.bin/electron-forge make"
+    "package.win": "./node_modules/.bin/./node_modules/.bin/electron-forge package --platform win32 --arch ia32",
+    "package.linux": "./node_modules/.bin/./node_modules/.bin/electron-forge package --platform linux --arch ia32",
+    "package.osx": "./node_modules/.bin/./node_modules/.bin/electron-forge package --platform darwin --arch ia32",
+    "make.win": "./node_modules/.bin/electron-forge make --platform win32 --arch ia32",
+    "make.linux": "./node_modules/.bin/electron-forge make --platform linux --arch ia32",
+    "make.osx": "./node_modules/.bin/electron-forge make --platform darwin --arch ia32"
   },
   "repository": {
     "type": "git",
@@ -31,7 +35,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-preact": "^1.1.0",
     "electron-forge": "^4.0.2",
-    "electron-prebuilt-compile": "1.7.6",
+    "electron-prebuilt-compile": "1.7.9",
     "preact": "^8.2.5"
   },
   "dependencies": {
@@ -45,14 +49,13 @@
     "forge": {
       "make_targets": {
         "win32": [
-          "squirrel"
+          "zip"
         ],
         "darwin": [
           "zip"
         ],
         "linux": [
-          "deb",
-          "rpm"
+          "zip"
         ]
       },
       "electronPackagerConfig": {
