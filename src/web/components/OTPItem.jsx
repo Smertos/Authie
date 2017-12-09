@@ -1,41 +1,39 @@
-import { h, Component } from 'preact'
-import Totp from '../totp'
+import React, { Component } from 'react';
+import Totp from '../totp';
 
-class OTPItem extends Component {
+export class OTPItem extends Component {
 
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = {
-      generator: new Totp(this.props.key),
+      generator: new Totp(this.props.secretKey),
       width: '100%'
-    }
+    };
 
     this.interval = setInterval(() => this.setState({
       width: Math.round((this.state.generator.getRemainingTime() + 1) * 100 / this.state.generator.expireTime, 2) + '%',
       currentCode: this.state.generator.getCode()
-    }), 250)
+    }), 250);
   }
 
-  componentWillUnmount = () => {
-    clearInterval(this.interval)
+  componentWillUnmount () {
+    clearInterval(this.interval);
   }
 
   render () {
     return (
       <div className="otp-item">
         <div className="info">
-          <span className="account">{ this.props.issuer }</span>
-          <span className="code">{ this.state.currentCode }</span>
+          <span className="account">{this.props.issuer}</span>
+          <span className="code">{this.state.currentCode}</span>
         </div>
-        <span className="name">{ this.props.name }</span>
+        <span className="name">{this.props.name}</span>
         <div className="progress">
-          <div className="bar" style={{ width: this.state.width }}></div>
+          <div className="bar" style={{ width: this.state.width }}/>
         </div>
       </div>
-    )
+    );
   }
 
 }
-
-export default OTPItem

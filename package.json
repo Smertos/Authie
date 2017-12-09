@@ -1,83 +1,75 @@
 {
   "name": "authie",
+  "productName": "authie",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/electron.js",
+  "description": "My Electron application description",
+  "main": "src/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron-forge start",
-    "package.win": "./node_modules/.bin/./node_modules/.bin/electron-forge package --platform win32 --arch ia32",
-    "package.linux": "./node_modules/.bin/./node_modules/.bin/electron-forge package --platform linux --arch ia32",
-    "package.osx": "./node_modules/.bin/./node_modules/.bin/electron-forge package --platform darwin --arch ia32",
-    "make.win": "./node_modules/.bin/electron-forge make --platform win32 --arch ia32",
-    "make.linux": "./node_modules/.bin/electron-forge make --platform linux --arch ia32",
-    "make.osx": "./node_modules/.bin/electron-forge make --platform darwin --arch ia32"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --cache --color --ext .jsx,.js src"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Smertos/Authie.git"
-  },
-  "keywords": [
-    "2fa",
-    "electron",
-    "much",
-    "secure",
-    "very",
-    "auth"
-  ],
-  "author": "Smertos",
+  "keywords": [],
+  "author": "smertos",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Smertos/Authie/issues"
-  },
-  "homepage": "https://github.com/Smertos/Authie#readme",
-  "devDependencies": {
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-preact": "^1.1.0",
-    "electron-forge": "^4.0.2",
-    "electron-prebuilt-compile": "1.7.9",
-    "preact": "^8.2.5"
-  },
-  "dependencies": {
-    "crypto-js": "^3.1.9-1",
-    "electron-compile": "^6.4.2",
-    "lato-webfont": "^2.15.1",
-    "mkdirp": "0.5.1",
-    "node-sass": "^4.6.0"
-  },
   "config": {
     "forge": {
       "make_targets": {
         "win32": [
-          "zip"
+          "squirrel"
         ],
         "darwin": [
           "zip"
         ],
         "linux": [
-          "zip"
+          "deb",
+          "rpm"
         ]
       },
       "electronPackagerConfig": {
-        "icon": "assets/icons/Authie.png",
-        "asar": true
+        "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
-        "name": "Authie",
-        "setupExe": "Authie-setup.exe",
-        "description": "Authie - 2FA for your desktop",
-        "setupIcon": "assets/icons/Authie.ico",
-        "noMsi": true
+        "name": "authie"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "Smertos",
-        "name": "Authie"
+        "owner": "",
+        "name": ""
       },
       "windowsStoreConfig": {
-        "packageName": ""
+        "packageName": "",
+        "name": "authie"
       }
     }
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "deep-set": "^1.0.1",
+    "electron-compile": "^6.4.2",
+    "electron-devtools-installer": "^2.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "node-quirc": "^1.0.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-file-input": "^0.2.5",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-modal": "^3.1.7"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^4.1.6",
+    "electron-prebuilt-compile": "1.8.2-beta.3",
+    "eslint": "^3",
+    "eslint-config-airbnb": "^15",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jsx-a11y": "^5",
+    "eslint-plugin-react": "^7"
   }
 }

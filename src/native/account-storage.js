@@ -1,27 +1,27 @@
-import Storage from './storage'
+import { Storage } from './storage';
 
-export default class SecretStorage extends Storage {
-  
+export class AccountStorage extends Storage {
+
   constructor () {
-    super('53cr375')
-    this.load()
+    super('53cr375');
+    this.load();
 
     if (this.get('accounts')) {
-      this.set('accounts', [])
+      this.set('accounts', []);
     }
   }
 
-  getAccounts = () => {
-    return this.get('accounts')
+  getAccounts () {
+    return this.get('accounts');
   }
 
-  addAccount = ({ name, key, issuer }) => {
+  addAccount ({ name, key, issuer }) {
     this.set('accounts',
       this
         .get('accounts')
         .concat({ name, key, issuer })
-    )
-    console.log(`${name} added!`)
+    );
+    console.log(`${name} added!`);
   }
 
 }

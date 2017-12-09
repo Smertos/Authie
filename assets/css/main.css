@@ -2,13 +2,19 @@
   --font-main: Lato, Roboto, Helvetica, Arial, sans-serif;
   --font-size: 2.5em;
 
-  --color-theme: crimson;
+  --color-theme-active: crimson;
+  --color-theme-passive: whitesmoke;
+
   --color-primary: whitesmoke;
   --color-secondary: #999;
 
   --background-body: #444;
   --background-primary: #333;
   --background-secondary: #222;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
@@ -19,6 +25,10 @@ body {
   margin: 0;
 
   background-color: var(--background-body);
+}
+
+.codes {
+  padding-bottom: 1rem; 
 }
 
 .title {
@@ -104,11 +114,10 @@ body {
   width: 0;
   height: 100%;
   
-  background-color: var(--color-theme);
+  background-color: var(--color-theme-active);
 }
 
 .form-add {
-  margin: 1rem;
   padding: 1rem;
 
   border-radius: 2px;
@@ -152,17 +161,22 @@ body {
 
   font-size: 1.25rem;
 
-  color: var(--color-primary);
+  color: var(--color-theme-passive);
   background-color: var(--background-secondary);
 
   outline: none;
 }
 
 .form-add input[type=text]:focus {
-  color: var(--color-theme);
+  color: var(--color-theme-active);
 }
 
-.form-add input[type=submit] {
+.form-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
   display: block;
 
   margin: 1em auto 0;
@@ -174,9 +188,25 @@ body {
   font-size: 1em;
 
   color: var(--color-primary);
-  background-color: var(--color-theme);
+  outline: none;
+
+  box-shadow: #222 1px 1px 5px 0;
 }
 
-.form-add input[type=submit]:hover {
+.btn:hover {
   cursor: pointer;
+}
+
+.btn:active {
+  box-shadow: #222 0 0 5px 0;
+}
+
+.active {
+  background-color: var(--color-theme-active);
+  color: var(--color-theme-passive);
+}
+
+.passive {
+  background-color: var(--color-theme-passive);
+  color: var(--color-theme-active);
 }

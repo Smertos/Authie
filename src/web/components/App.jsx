@@ -1,84 +1,61 @@
-import { ipcRenderer as ipc } from 'electron'
-import { h, Component } from 'preact'
-import OTPItem from './OTPItem'
+import { ipcRenderer as ipc } from 'electron';
+import React, { Component } from 'react';
+import Modal from 'react-modal';
 
-class App extends Component {
+import { AddFormModal } from './AddFormModal';
+import { Button } from './Button';
+import { OTPItem } from './OTPItem';
+
+Modal.setAppElement('#App');
+
+export class App extends Component {
 
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = {
       accounts: [
-        /*{ name: 'example@learntotp.null', key: 'JBSWY3DPEHPK3PXP', issuer: 'test' },*/
+        /*
+         *{ name: 'example@learntotp.null', key: 'JBSWY3DPEHPK3PXP', issuer: 'test' },
+         */
       ],
-      name: '', key: '', issuer: ''
-    }
+      isFormOpened: false
+    };
 
     ipc.on('accounts', (event, accounts) => {
-      console.log(event, accounts)
-      this.setState({ accounts })
-    })
-
-    ipc.send('get-accounts')
+      console.log(event, accounts);
+      this.setState({ accounts });
+    });
   }
 
-  addAccount = (event) => {
-    event.preventDefault()
-
-    const { name, key, issuer } = this.state
-
-    if (name.length && key.length && issuer.length) {
-      ipc.send('add-account', { name, key, issuer })
-      this.setState({ name: '', key: '', issuer: '' })
-    }
+  componentDidMount () {
+    ipc.send('get-accounts');
   }
 
-  getOnChange = (name) => {
-    return (function (event) {
-      this.setState({ [name]: event.target.value.trim() })
-    }).bind(this)
-  }
 
   render () {
     return (
-      <div class="codes">
-        <p class="title">Authie</p>
+      <div className="codes">
+        <p className="title">Authie</p>
 
         {
           this.state.accounts.map(
-            ({ name, key, issuer }) => <OTPItem name={ name } key={ key } issuer={ issuer } />
+            ({ name, key, issuer }, index) =>
+              <OTPItem name={name} secretKey={key} key={key+index} issuer={issuer} />
           )
         }
-        <form class="form-add" onSubmit={ this.addAccount }>
-          <span class="form-title">Add account</span>
-          <div>
-            <input
-              type="text"
-              placeholder="Account Name"
-              onChange={ this.getOnChange('name') }
-              value={ this.state.name }
-            />
-            <input
-              type="text"
-              placeholder="Issuer"
-              onChange={ this.getOnChange('issuer') }
-              value={ this.state.issuer }
-            />
-          </div>
-          
-          <input
-            type="text"
-            placeholder="Shared Secret Key"
-            onChange={ this.getOnChange('key') }
-            value={ this.state.key }
-          />
-          <input type="submit" value="Add Account" />
-        </form>
+
+        <AddFormModal
+          isOpen={this.state.isFormOpened}
+          onRequestClose={() => this.setState({ isFormOpened: false })}
+        />
+        <Button
+          type="submit"
+          label="Add Account"
+          onClick={() => this.setState({ isFormOpened: true })}
+        />
       </div>
-    )  
+    );
   }
 
 }
-
-export default App
-
