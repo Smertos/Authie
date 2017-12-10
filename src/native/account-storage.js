@@ -1,3 +1,5 @@
+import nanoid from 'nanoid';
+
 import { Storage } from './storage';
 
 export class AccountStorage extends Storage {
@@ -19,7 +21,7 @@ export class AccountStorage extends Storage {
     this.set('accounts',
       this
         .get('accounts')
-        .concat({ name, key, issuer })
+        .concat({ id: nanoid(), name, key, issuer })
     );
     console.log(`${name} added!`);
   }

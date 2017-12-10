@@ -4,14 +4,7 @@ import { resolve } from 'path';
 import mkdirp from 'mkdirp';
 import deepSet from 'deep-set';
 
-const promisify =
-  func =>
-    (...args) => new Promise(
-      (res, rej) => func(...args, (err, data) => {
-        if (err) rej(err);
-        else res(data);
-      }),
-    );
+import { promisify } from './promisify';
 
 const accessAsync = promisify(access);
 const readFileAsync = promisify(readFile);

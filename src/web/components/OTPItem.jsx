@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Totp from '../totp';
 
+import FaEllipsisV from 'react-icons/lib/fa/ellipsis-v';
+
 export class OTPItem extends Component {
 
   constructor (props) {
@@ -26,7 +28,10 @@ export class OTPItem extends Component {
       <div className="otp-item">
         <div className="info">
           <span className="account">{this.props.issuer}</span>
-          <span className="code">{this.state.currentCode}</span>
+          <span className="code">
+            {this.state.currentCode}
+            <FaEllipsisV size={42} onClick={this.props.onOpenOptions} />
+          </span>
         </div>
         <span className="name">{this.props.name}</span>
         <div className="progress">

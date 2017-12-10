@@ -1,7 +1,12 @@
-import { app, BrowserWindow, ipcMain as ipc } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain as ipc
+} from 'electron';
 // import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 import { AccountStorage } from './native/account-storage';
+import { scanQRCode } from './native/scan-qr-code';
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
 const accountStore = new AccountStorage();
@@ -39,6 +44,8 @@ const createWindow = async () => {
     accountStore.addAccount(args);
     event.sender.send('accounts', accountStore.getAccounts());
   });
+
+  ipc.on('scan-qr-code', scanQRCode);
 };
 
 app.on('ready', createWindow);

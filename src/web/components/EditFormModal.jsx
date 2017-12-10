@@ -5,18 +5,20 @@ import Modal from 'react-modal';
 import { Button } from './Button';
 import { styles } from '../modal-styles';
 
-export class AddFormModal extends Component {
+export class EditFormModal extends Component {
 
   constructor (props) {
     super(props);
 
+    const { name, key, issuer } = this.props.account;
+
     this.state = {
-      name: '',
-      key: '',
-      issuer: ''
+      name,
+      key,
+      issuer
     };
 
-    this.addAccount = this.addAccount.bind(this);
+    this.updateAccount = this.updateAccount.bind(this);
   }
 
   getOnChange (name) {
@@ -25,13 +27,14 @@ export class AddFormModal extends Component {
     };
   }
 
-  addAccount (event) {
+  updateAccount (event) {
     event.preventDefault();
 
     const { name, key, issuer } = this.state;
+    const { id } = this.props.account;
 
     if (name.length && key.length && issuer.length) {
-      ipc.send('add-account', { name, key, issuer });
+      ipc.send('update-account', { id, name, key, issuer });
       this.setState({ name: '', key: '', issuer: '' });
       this.props.onRequestClose();
     }
@@ -43,10 +46,10 @@ export class AddFormModal extends Component {
         isOpen={this.props.isOpen}
         onRequestClose={this.props.onRequestClose}
         style={styles}
-        contentLable="Add Account"
+        contentLable="Edit Account"
       >
-        <form className="form-add" onSubmit={this.addAccount}>
-          <span className="form-title">Add account</span>
+        <form className="form-add" onSubmit={this.updateAccount}>
+          <span className="form-title">Edit Account</span>
           <div>
             <input
               type="text"
@@ -72,7 +75,7 @@ export class AddFormModal extends Component {
 
           <div className="form-controls">
             <Button type="passive" label="Cancel" onClick={this.props.onRequestClose} />
-            <Button type="submit" label="Add" />
+            <Button type="submit" label="Update" />
         </div>
         </form>
       </Modal>
