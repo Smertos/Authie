@@ -4,26 +4,45 @@ import { Storage } from './storage';
 
 export class AccountStorage extends Storage {
 
-  constructor () {
-    super('53cr375');
-    this.load();
+  constructor (onUpdate) {
+    super('53cr375', { accounts: [] });
 
-    if (this.get('accounts')) {
-      this.set('accounts', []);
-    }
+    this.onUpdate = onUpdate;
   }
 
   getAccounts () {
-    return this.get('accounts');
+    return this.get('accounts', []);
   }
 
-  addAccount ({ name, key, issuer }) {
+  addAccount ({ id, type, name, secret, issuer }) {
+    const account = { id: id || nanoid(), type, name, secret, issuer };
+
     this.set('accounts',
       this
         .get('accounts')
-        .concat({ id: nanoid(), name, key, issuer })
+        .concat(account)
     );
-    console.log(`${name} added!`);
+
+    this.onUpdate(this.get('accounts'));
+
+    console.debug(`${name} added!`);
+  }
+
+  updateAccount (account) {
+    this.deleteAccount(account);
+    this.addAccount(account);
+
+    console.debug(`${account.name} updated!`);
+  }
+
+  deleteAccount ({ id }) {
+    this.set('accounts',
+      this
+        .get('accounts')
+        .filter(account => account.id !== id)
+    );
+
+    console.debug(`${id} has been removed`);
   }
 
 }

@@ -10,15 +10,20 @@ export class EditFormModal extends Component {
   constructor (props) {
     super(props);
 
-    const { name, key, issuer } = this.props.account;
+    const { name, secret, issuer } = this.props.account;
 
     this.state = {
       name,
-      key,
+      secret,
       issuer
     };
 
     this.updateAccount = this.updateAccount.bind(this);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { name, secret, issuer } = this.props.account;
+    this.setState({ name, secret, issuer });
   }
 
   getOnChange (name) {
@@ -30,12 +35,12 @@ export class EditFormModal extends Component {
   updateAccount (event) {
     event.preventDefault();
 
-    const { name, key, issuer } = this.state;
+    const { name, secret, issuer } = this.state;
     const { id } = this.props.account;
 
-    if (name.length && key.length && issuer.length) {
-      ipc.send('update-account', { id, name, key, issuer });
-      this.setState({ name: '', key: '', issuer: '' });
+    if (name.length && secret.length && issuer.length) {
+      ipc.send('update-account', { id, name, secret, issuer });
+      this.setState({ name: '', secret: '', issuer: '' });
       this.props.onRequestClose();
     }
   }
@@ -52,6 +57,7 @@ export class EditFormModal extends Component {
           <span className="form-title">Edit Account</span>
           <div>
             <input
+              className="field"
               type="text"
               placeholder="Account Name"
               onChange={this.getOnChange('name')}
@@ -59,6 +65,7 @@ export class EditFormModal extends Component {
             />
 
             <input
+              className="field"
               type="text"
               placeholder="Issuer"
               onChange={this.getOnChange('issuer')}
@@ -67,16 +74,17 @@ export class EditFormModal extends Component {
           </div>
 
           <input
+            className="field"
             type="text"
             placeholder="Shared Secret Key"
-            onChange={this.getOnChange('key')}
-            value={this.state.key}
+            onChange={this.getOnChange('secret')}
+            value={this.state.secret}
           />
 
           <div className="form-controls">
             <Button type="passive" label="Cancel" onClick={this.props.onRequestClose} />
             <Button type="submit" label="Update" />
-        </div>
+          </div>
         </form>
       </Modal>
     );

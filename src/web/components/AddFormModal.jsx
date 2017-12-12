@@ -12,7 +12,7 @@ export class AddFormModal extends Component {
 
     this.state = {
       name: '',
-      key: '',
+      secret: '',
       issuer: ''
     };
 
@@ -28,11 +28,11 @@ export class AddFormModal extends Component {
   addAccount (event) {
     event.preventDefault();
 
-    const { name, key, issuer } = this.state;
+    const { name, secret, issuer } = this.state;
 
-    if (name.length && key.length && issuer.length) {
-      ipc.send('add-account', { name, key, issuer });
-      this.setState({ name: '', key: '', issuer: '' });
+    if (name.length && secret.length && issuer.length) {
+      ipc.send('add-account', { name, secret, issuer });
+      this.setState({ name: '', secret: '', issuer: '' });
       this.props.onRequestClose();
     }
   }
@@ -49,6 +49,7 @@ export class AddFormModal extends Component {
           <span className="form-title">Add account</span>
           <div>
             <input
+              className="field"
               type="text"
               placeholder="Account Name"
               onChange={this.getOnChange('name')}
@@ -56,6 +57,7 @@ export class AddFormModal extends Component {
             />
 
             <input
+              className="field"
               type="text"
               placeholder="Issuer"
               onChange={this.getOnChange('issuer')}
@@ -64,10 +66,11 @@ export class AddFormModal extends Component {
           </div>
 
           <input
+            className="field"
             type="text"
             placeholder="Shared Secret Key"
-            onChange={this.getOnChange('key')}
-            value={this.state.key}
+            onChange={this.getOnChange('secret')}
+            value={this.state.secret}
           />
 
           <div className="form-controls">

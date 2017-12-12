@@ -10,8 +10,8 @@ import { AddFormModal } from './AddFormModal';
 import { EditFormModal } from './EditFormModal';
 import { AccountOptionsModal } from './AccountOptionsModal';
 import { SettingsModal } from './SettingsModal';
+import { PasswordPromptModal } from './PasswordPromptModal';
 
-import { Button } from './Button';
 import { OTPItem } from './OTPItem';
 
 Modal.setAppElement('#App');
@@ -22,35 +22,66 @@ export class App extends Component {
     super(props);
 
     this.state = {
-      accounts: [
-        /*
-         *{ name: 'example@learntotp.null', key: 'JBSWY3DPEHPK3PXP', issuer: 'test' },
-         */
-      ],
+      account: {},
+      accounts: [],
+
       isAddFormOpened: false,
       isSettingsOpened: false,
-      isAccountOptionsOpened: false,
       isEditFormOpened: false,
+      isAccountOptionsOpened: false,
+      isPasswordFormOpened: false,
 
-      account: {}
+      isLoggedIn: true,
+
+      currentPasswordEvent: '',
+
+      settings: {
+        isPasswordSet: false
+      }
     };
 
     ipc.on('accounts', (event, accounts) => {
       this.setState({ accounts });
     });
+
+    ipc.on('settings', (event, settings) => {
+      this.setState({
+        settings,
+        isPasswordFormOpened: settings.isPasswordSet,
+        currentPasswordEvent: settings.isPasswordSet ? 'load' : ''
+      });
+
+      if (!settings.isPasswordSet) {
+        ipc.send('load');
+      }
+    });
+
+    this.onPasswordSwitch = this.onPasswordSwitch.bind(this);
   }
 
   componentDidMount () {
-    ipc.send('get-accounts');
+    ipc.send('get-settings');
+
+    setInterval(() => ipc.send('get-accounts'), 2500);
   }
 
   onScanQRCode () {
     ipc.send('scan-qr-code');
   }
 
+  onPasswordSwitch () {
+    const { isPasswordSet } = this.state.settings;
+
+    this.setState({
+      currentPasswordEvent: isPasswordSet ? 'remove-password' : 'add-password',
+      isPasswordFormOpened: true,
+      isSettingsOpened: false
+    });
+  }
+
   render () {
     return (
-      <div className="codes">
+      <div className="app">
         <div className="title-bar">
           <span className="title">Authie</span>
 
@@ -61,13 +92,14 @@ export class App extends Component {
           </div>
         </div>
 
+        <div className="codes">
         {
           this.state.accounts.map(
             (acc, index) =>
               <OTPItem
                 name={acc.name}
-                secretKey={acc.key}
-                key={acc.key + index}
+                secretKey={acc.secret}
+                key={acc.secret + index}
                 issuer={acc.issuer}
                 onOpenOptions={() => this.setState({
                   account: acc,
@@ -76,6 +108,7 @@ export class App extends Component {
               />
           )
         }
+        </div>
 
         <AddFormModal
           isOpen={this.state.isAddFormOpened}
@@ -98,6 +131,13 @@ export class App extends Component {
         <SettingsModal
           isOpen={this.state.isSettingsOpened}
           onRequestClose={() => this.setState({ isSettingsOpened: false })}
+          onPasswordSwitch={this.onPasswordSwitch}
+          settings={this.state.settings}
+        />
+        <PasswordPromptModal
+          isOpen={this.state.isPasswordFormOpened}
+          onRequestClose={() => this.setState({ isPasswordFormOpened: false })}
+          eventName={this.state.currentPasswordEvent}
         />
       </div>
     );

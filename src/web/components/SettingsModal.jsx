@@ -7,18 +7,6 @@ import { styles } from '../modal-styles';
 
 export class SettingsModal extends Component {
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      isPasswordSet: false
-    };
-  }
-
-  componentDidMount () {
-    ipc.send('get-settings');
-  }
-
   render () {
     return (
       <Modal
@@ -37,11 +25,11 @@ export class SettingsModal extends Component {
 
           <div>
             <h4>Password</h4>
-            {
-              this.state.isPasswordSet
-                ? <Button label="Remove password" />
-                : <Button label="Set password" />
-            }
+
+            <Button
+              label={this.props.settings.isPasswordSet ? "Remove password" : "Set password"}
+              onClick={() => this.props.onPasswordSwitch()}
+            />
           </div>
         </div>
       </Modal>

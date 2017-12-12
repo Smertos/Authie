@@ -27,7 +27,7 @@ body {
   background-color: var(--background-body);
 }
 
-.codes {
+.app {
   padding-bottom: 1rem; 
 }
 
@@ -39,6 +39,8 @@ body {
   padding: 0.5em 1em;
 
   background-color: var(--background-primary);
+
+  -webkit-app-region: drag;
 }
 
 .title {
@@ -55,6 +57,8 @@ body {
 
 .buttons > svg {
   fill: var(--color-theme-passive);
+
+  -webkit-app-region: no-drag;
 }
 
 .buttons > svg:hover {
@@ -85,7 +89,7 @@ body {
   justify-content: space-between;
 }
 
-.account {
+.name {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -127,7 +131,7 @@ body {
   cursor: pointer;
 }
 
-.name {
+.issuer {
   margin-bottom: 1rem;
 
   font-weight: 300;
@@ -185,7 +189,16 @@ body {
   width: 100%;
 }
 
-.form-add input[type=text] {
+.form-add input[type=text]:focus {
+  color: var(--color-theme-active);
+}
+
+.form-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.field[type=text] {
   margin: 0.25rem 0;
   padding: 0.5rem;
 
@@ -198,15 +211,6 @@ body {
   background-color: var(--background-secondary);
 
   outline: none;
-}
-
-.form-add input[type=text]:focus {
-  color: var(--color-theme-active);
-}
-
-.form-controls {
-  display: flex;
-  justify-content: space-between;
 }
 
 .btn {
@@ -284,8 +288,30 @@ body {
   background-color: var(--background-primary);
 }
 
+.settings > div:not(:first-child) {
+  margin-top: 0.5em;
+}
+
 .settings > div > h4 {
   margin-top: 0;
 
   color: var(--color-primary);
+}
+
+.password-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+
+  margin: 1em;
+}
+
+.password-form > h3 {
+  margin: 0;
+
+  color: var(--color-primary);
+}
+
+.password-form > .field {
+  background-color: var(--background-primary);
 }

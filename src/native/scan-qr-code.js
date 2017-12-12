@@ -26,7 +26,7 @@ export function scanQRCode (accountStore) {
       .then(decodeAsync)
       .then(codes => {
         const parsedCodes = codes.filter(code => code && code.data);
-        parseURIs(accountStore, parsedCodes);
+        parseURIs(accountStore, parsedCodes.map(e => e.data.toString()));
       })
       .catch((err) => {
         console.error(err);
