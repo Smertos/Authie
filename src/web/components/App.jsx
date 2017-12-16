@@ -66,7 +66,7 @@ export class App extends Component {
   }
 
   onScanQRCode () {
-    ipc.send('scan-qr-code');
+		ipc.send('scan-qr-code');
   }
 
   onPasswordSwitch () {

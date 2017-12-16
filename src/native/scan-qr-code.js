@@ -1,13 +1,12 @@
 import { dialog } from 'electron';
-import { decode } from 'node-quirc';
+import QrCode from 'qrcode-reader';
 import sharp from 'sharp';
 import { readFile } from 'fs';
 
 import { promisify } from './promisify';
-import { parseURIs } from './parse-uris';
+import { parseURI } from './parse-uri';
 
 const readFileAsync = promisify(readFile);
-const decodeAsync = promisify(decode);
 
 export function scanQRCode (accountStore) {
   dialog.showOpenDialog({
@@ -18,15 +17,29 @@ export function scanQRCode (accountStore) {
     ]
   }, (filePaths) => {
     if (!filePaths || filePaths.length === 0) return;
-    const filePath = filePaths[0];
-    const fileExt = filePath.split('.').slice(-1)[0];
 
-    readFileAsync(filePaths[0])
-      .then(image => sharp(image).png().toBuffer())
-      .then(decodeAsync)
-      .then(codes => {
-        const parsedCodes = codes.filter(code => code && code.data);
-        parseURIs(accountStore, parsedCodes.map(e => e.data.toString()));
+    const filePath = filePaths[0];
+
+    readFileAsync(filePath)
+      .then(image => new Promise((res, rej) => {
+        sharp(image).raw().toBuffer((err, buffer, info) => {
+          if (err) rej(err);
+          else res([buffer, info]);
+        });
+      }))
+      .then(([buffer, info]) => new Promise((res, rej) => {
+        const qr = new QrCode();
+
+        qr.callback = (err, result) => {
+          if (err) rej(err);
+          else res(result);
+        };
+
+        qr.decode(info, buffer);
+      }))
+      .then(({ result }) => {
+        console.log('QR code:', result);
+        parseURI(accountStore, result);
       })
       .catch((err) => {
         console.error(err);

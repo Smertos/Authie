@@ -78,7 +78,7 @@ export class Storage {
         ? hashedPassword + ':' + AES.encrypt(dataString, password).toString()
         : dataString
     )
-      .then(() => console.debug(this.fileName + ' saved'))
+      .then(() => console.log(this.fileName + ' saved'))
       .catch(console.error);
   }
 

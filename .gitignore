@@ -27,7 +27,6 @@ jspm_packages/
 # Vim swap files
 *.swp
 
-# It's
-out
-# , not in!
+out/
+build/
 

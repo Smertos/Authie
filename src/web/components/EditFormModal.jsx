@@ -12,6 +12,7 @@ export class EditFormModal extends Component {
 
     const { name, secret, issuer } = this.props.account;
 
+    this.prevProps = {};
     this.state = {
       name,
       secret,
@@ -23,7 +24,11 @@ export class EditFormModal extends Component {
 
   componentWillReceiveProps (nextProps) {
     const { name, secret, issuer } = this.props.account;
-    this.setState({ name, secret, issuer });
+
+    if (this.prevProps !== this.props.account) {
+      this.setState({ name, secret, issuer });
+      this.prevProps = this.props.account;
+    }
   }
 
   getOnChange (name) {

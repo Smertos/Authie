@@ -21,14 +21,16 @@ export class AddFormModal extends Component {
 
   getOnChange (name) {
     return (event) => {
-      this.setState({ [name]: event.target.value.trim() });
+      const value = event.target.value;
+      this.setState({ [name]: name !== 'secret' ? value : value.replace(/\s/g, '') });
     };
   }
 
   addAccount (event) {
     event.preventDefault();
 
-    const { name, secret, issuer } = this.state;
+    let { name, secret, issuer } = this.state;
+    [name, secret, issuer] = [name, secret, issuer].map(e => e.trim());
 
     if (name.length && secret.length && issuer.length) {
       ipc.send('add-account', { name, secret, issuer });

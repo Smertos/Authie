@@ -25,14 +25,14 @@ export class AccountStorage extends Storage {
 
     this.onUpdate(this.get('accounts'));
 
-    console.debug(`${name} added!`);
+    console.log(`${name} added!`);
   }
 
   updateAccount (account) {
     this.deleteAccount(account);
     this.addAccount(account);
 
-    console.debug(`${account.name} updated!`);
+    console.log(`${account.name} updated!`);
   }
 
   deleteAccount ({ id }) {
@@ -42,7 +42,7 @@ export class AccountStorage extends Storage {
         .filter(account => account.id !== id)
     );
 
-    console.debug(`${id} has been removed`);
+    console.log(`${id} has been removed`);
   }
 
 }

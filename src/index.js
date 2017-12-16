@@ -1,7 +1,7 @@
 import {
   app,
   BrowserWindow,
-  ipcMain as ipc
+  ipcMain as ipc,
 } from 'electron';
 // import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
@@ -78,7 +78,13 @@ const createWindow = async () => {
   ipc.on('update-account', (event, account) => accountStore.updateAccount(account));
   ipc.on('delete-account', (event, account) => accountStore.deleteAccount(account));
 
-  ipc.on('scan-qr-code', event => scanQRCode(accountStore, () => mainWindow.webContents.emit('accounts', accountStore.getAccounts())));
+	ipc.on(
+    'scan-qr-code',
+    event => scanQRCode(
+      accountStore,
+      () => mainWindow.webContents.emit('accounts', accountStore.getAccounts())
+    )
+  );
 };
 
 app.on('ready', createWindow);
